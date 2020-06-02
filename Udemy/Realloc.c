@@ -24,7 +24,7 @@ p = (int*)malloc(qtd * sizeof(int));
     printf("Informe a quantidade de Elementos para o Vetor: ");
     scanf("%d", &qtd);
 
-    p = (int*)realloc(p, qtd * sizeof(int));
+    p = (int*)realloc(p, qtd * sizeof(int)); //Ira realocar em p a nova quantidade de memoria necessaria, baseada na nova quantidade de elementos fornecida
 
     if(p){
         for(int i = 0; i < qtd; i++){
