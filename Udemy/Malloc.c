@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Malloc não zera a memoria antes de alocar, pode utilizar o lixo que estiver naquela posição.
+
 int main(){
 
 int qtd, *p;
