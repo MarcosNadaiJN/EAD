@@ -6,10 +6,10 @@
  //Deinindo a estrutura da lista
 struct no {
   int dado;
-  struct no * proximo;
+  struct no *proximo;
 };
 //Deinindo variáveis
-typedef no * ptr_no;
+typedef no *ptr_no;
 ptr_no lista;
 int op;
 //Prototipação
