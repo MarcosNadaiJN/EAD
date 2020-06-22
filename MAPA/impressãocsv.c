@@ -1,42 +1,46 @@
 #include <stdio.h>
 #include <string.h>
 
+//Função de Impressão do CSV
 void process_field(int field_count, char *value) {
     if (field_count == 0) {
-        printf("FID:\t");
+        printf("GID:\t");
     }
     if (field_count == 1) {
-        printf("gid:\t");
+        printf("CO-CEP:\t");
     }
     if (field_count == 2) {
-            printf("UF:\t");
+        printf("UF:\t");
     }
     if (field_count == 3) {
-        printf("Nome:\t");
+        printf("Cidade:\t");
     }
     if (field_count == 4) {
-        printf("Censo:\t");
+        printf("No-Fantasia:\t");
     }
     if (field_count == 5) {
-        printf("POP_TOT:\t");
+        printf("No-Bairro:\t");
     }
     if (field_count == 6) {
-        printf("PESS65oumais:\t");
+        printf("Nu-Endereco:\t");
     }
     if (field_count == 7) {
-        printf("PER_PESS65oumais:\t");
+        printf("No-Logradouro:\t");
     }
     if (field_count == 8) {
-        printf("descricao:\t");
+        printf("Nu-Telefone:\t");
     }
     if (field_count == 9) {
-        printf("legenda:\t");
+        printf("Ano-UPA-Func:\t");
     }
     if (field_count == 10) {
-        printf("classe:\t");
+        printf("Mes-UPA-Func:\t");
     }
     if (field_count == 11) {
-        printf("geom:\t");
+        printf("Fonte-Recurso:\t");
+    }
+    if (field_count == 12) {
+        printf("Porte:\t");
     }
     printf("%s\n", value);
 }
@@ -45,45 +49,38 @@ int main(void) {
     char buf[1024];
     char token[1024];
 
-    int row_count = 0;
-    int field_count = 0;
-    int in_double_quotes = 0;
+    int conta_linha = 0;
+    int conta_coluna = 0;
     int token_pos = 0;
     int i = 0;
 
-    FILE *fp = fopen("sample.csv", "r");
+    //Abertura do Arquivo CSV
+    FILE *fp = fopen("upaemfuncionamento.csv", "r");
 
+    //Mensagem de Erro caso não seja possivel Abrir o Arquivo
     if (!fp) {
-        printf("Can't open file\n");
+        printf("Não Foi Possivel Abrir o Arquivo\n");
         return 0;
     }
 
 
     while (fgets(buf, 1024, fp)) {
-        row_count++;
+        conta_linha++;
 
-        if (row_count == 1) {
+        if (conta_linha == 1) {
             continue;
         }
 
-        field_count = 0;
+        conta_coluna = 0;
         i = 0;
         do {
             token[token_pos++] = buf[i];
 
-            if (!in_double_quotes && (buf[i] == ',' || buf[i] == '\n')) {
+            if (buf[i] == ',' || buf[i] == '\n') {
                 token[token_pos - 1] = 0;
                 token_pos = 0;
-                process_field(field_count++, token);
+                process_field(conta_coluna++, token);
             }
-
-            if (buf[i] == '"' && buf[i + 1] != '"') {
-                token_pos--;
-                in_double_quotes = !in_double_quotes;
-            }
-
-            if (buf[i] == '"' && buf[i + 1] == '"')
-                i++;
 
         } while (buf[++i]);
 
